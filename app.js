@@ -8,12 +8,12 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
-//require('dotenv').config()
+require('dotenv').config()
 
 // Establish database
 require('./model');
 var User = mongoose.model('User');
-mongoose.connect('mongodb://localhost:27017/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
+mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@localhost:27017/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
 
 // Start app
 var app = express();
@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({
-  secret: "lkajshkjdhkjhkjfhkhkeyhiuhdhkhiuhfkjhYJFYUYUFTDT"
+  secret: process.env.EXPRESS_SESSION_SECRET
 }));
 app.use(passport.initialize());
 app.use(passport.session());
