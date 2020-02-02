@@ -1,3 +1,7 @@
+// NARNIAC BY TEEJ
+// 2020-02-02
+
+// IMPORT THE NODE PACKAGES HERE
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -10,11 +14,18 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 require('dotenv').config()
 
-// Establish database
+// Establish database connection
 require('./model');
 var User = mongoose.model('User');
-mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@localhost:27017/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
-
+// need to change mongoose for development compatability
+if ((process.env.MONGO_USERNAME || process.env.MONGO_PASSWORD || "None") == "None") {
+  mongoose.connect('mongodb://' + (process.env.BASE_URL || 'localhost') + ':27017/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
+  console.log("Running on the local database...");
+}
+else {
+  mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@' + (process.env.BASE_URL || 'localhost') + '/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
+  console.log("Running with the environment variable desired database...");
+}
 // Start app
 var app = express();
 
@@ -22,13 +33,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Setup middleware for the app
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({
-  secret: process.env.EXPRESS_SESSION_SECRET
+  secret: (process.env.EXPRESS_SESSION_SECRET || 'ajsdf#$%SFG98fj0dsjfoi2343GD34gh@#FdsFASFeFaSDfErreSRE')
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,10 +60,11 @@ passport.use(new LocalStrategy({
   })
 }));
 
+
+// Serialize and Deserialize the json data
 passport.serializeUser(function(user, next) {
   next(null, user._id);
 });
-
 passport.deserializeUser(function(id, next) {
   User.findById(id, function(err, user) {
       next(err, user);
@@ -68,6 +81,7 @@ app.get('/main', function (req, res, next) {
   res.render('main');
 });
 
+// LOGIN AND SIGNUP INFORMATION
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login-page' }),
     function(req, res) {
@@ -92,13 +106,14 @@ app.post('/signup', function(req, res, next) {
         if(err) return next(err);
         res.redirect('/main');
       });
-      console.log(" ~~ ~~ ~~ [new user] ~~ ~~ ~~ ")
+      console.log(" ~~ ~~ ~~ [new user] ~~ ~~ ~~ ");
       console.log(req.body.email +" has signed up!");
-      console.log(" ~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~ ")
+      console.log(" ~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~ ~~ ");
       });
   //console.log(req.body);
 });
 
+// ERROR HANDLING
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
