@@ -82,15 +82,17 @@ app.get('/books', function(req, res, next) {
 });
 
 /* GET main page. */
+
 app.get('/main', function (req, res, next) {
-  res.render('main');
+  // res.render('main');
+  res.render('books');
 });
 
 // LOGIN AND SIGNUP INFORMATION
 app.post('/login',
     passport.authenticate('local', { failureRedirect: '/login-page' }),
     function(req, res) {
-        res.redirect('/main');
+        res.redirect('/books');
     });
 
 app.get('/login-page', function(req, res, next) {

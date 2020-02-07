@@ -17,14 +17,16 @@ $(document).ready(function(){
  
            for(i=0;i<response.items.length;i++)
            {
-            title=$('<div class="col-lg-8 ml-auto"><p class="lead"><h5>' + response.items[i].volumeInfo.title + '</h5></p></div>');  
-            author=$('<div class="col-lg-8 ml-auto"><p class="lead"> By: ' + response.items[i].volumeInfo.authors + '</p></div>');
-            img = $('<img class="card col-lg-2 container aligning z-depth-5" id="dynamic"><br><a href=' + response.items[i].volumeInfo.infoLink + '><div class="col-lg-8 ml-auto"><button class="btn btn-primary">Read More</button></a></div>'); 	
-            url= response.items[i].volumeInfo.imageLinks.thumbnail;
-            img.attr('src', url);
-            title.appendTo('#result');
-            author.appendTo('#result');
-            img.appendTo('#result');
+               if (response.items[i].accessInfo.accessViewStatus == "SAMPLE"){
+                title=$('<p class="lead"><h5>' + response.items[i].volumeInfo.title +  '</h5></p>');  
+                author=$('<p class="lead"> By: ' + response.items[i].volumeInfo.authors + '</p>');
+                img = $('<img class="mb-3"><br><a href=' + response.items[i].accessInfo.webReaderLink + '><button class="btn btn-primary mb-3">Read More</button></a>'); 	
+                url= response.items[i].volumeInfo.imageLinks.thumbnail;
+                img.attr('src', url);
+                title.appendTo('#result');
+                author.appendTo('#result');
+                img.appendTo('#result');
+               }
            }
           });
        

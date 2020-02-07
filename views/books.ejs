@@ -17,15 +17,6 @@
     <!-- Theme CSS -->
     <link href="/css/freelancer.min.css" rel="stylesheet">
 
-    #footer {
-        position:fixed;
-        left:0px;
-        bottom:0px;
-        height:30px;
-        width:100%;
-        background:#999;
-     }
-
 </head>
 
 <body id="page-top">
@@ -48,25 +39,20 @@
     </div>
   </nav>
 
-    <!-- Masthead -->
-    <header class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column"></div>
-        <p>
-        <form id="myform">
-            <div class="container">
-                <input type="search" class="mb-4 form-control" placeholder="Enter Book Here" id="books">
-                <button class="btn btn-primary">Search</button>
-            </div>
-        </form>
-        </p>
-
-    </div>
-    </header>
-
-    
 
     <!-- OUTPUT RESULTS -->
-    <section class="page-section portfolio">
+    <section class="page-section portfolio masthead text-center">
+
+        <!-- SEARCH FOR BOOK SECTION -->
+        <form id="myform">
+            <div class="container">
+                <input class="form-control" placeholder="Enter Book Here" id="books"> <br />
+                <button class="btn btn-primary btn-xl">Explore</button>
+            </div>
+        </form>
+        <br /><br />
+
+        <!-- BOOK RESULTS HERE -->
         <div class="container">
             <div id="result">
             </div>
@@ -77,12 +63,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="/js/books.js"></script>
 
-      <!-- Copyright Section -->
-  <section class="copyright py-4 text-center text-white">
-    <div class="container">
-      <small>Copyright &copy; Narniac 2019</small>
-    </div>
-  </section>
+    <!-- Portfolio Section -->
+    <section class="page-section portfolio" id="Sign In">
+        <div class="col-lg-8 ml-auto">
+            <p class="lead">
+        </div>
+    </section>
+
+    <!-- Blank Section -->
+    <section class="masthead bg-primary">
+    </section>
+
+    <!-- Copyright Section -->
+    <section class="copyright py-4 text-center text-white">
+        <div class="container">
+            <small>Copyright &copy; Narniac 2019</small>
+        </div>
+    </section>
 
   <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
   <div class="scroll-to-top d-lg-none position-fixed ">
