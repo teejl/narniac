@@ -8,10 +8,11 @@ $(document).ready(function(){
               alert("Please enter something in the field");
           }
           else{		
-          var url = "";
-          var img = "";
-       var title = "";
-       var author = "";
+            var url = "";
+            var img = "";
+            var title = "";
+            var author = "";
+            $('#result').empty();
  
           $.get("https://www.googleapis.com/books/v1/volumes?q=" + search,function(response){
  
