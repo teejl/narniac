@@ -76,6 +76,11 @@ app.get('/', function(req, res, next) {
   res.render('index', { title: 'Dumm' });
 });
 
+/* adding in books api */
+app.get('/books', function(req, res, next) {
+  res.render('books');
+});
+
 /* GET main page. */
 app.get('/main', function (req, res, next) {
   res.render('main');
