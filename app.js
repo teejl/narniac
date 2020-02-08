@@ -23,7 +23,7 @@ if ((process.env.MONGO_USERNAME || process.env.MONGO_PASSWORD || "None") == "Non
   console.log("Running on the local database...");
 }
 else {
-  mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@' + (process.env.BASE_URL || 'localhost') + '/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
+  mongoose.connect('mongodb://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@' + (process.env.BASE_URL || 'localhost') + ':27017/main-db', { useNewUrlParser: true,  useUnifiedTopology: true });
   console.log("Running with the environment variable desired database...");
 }
 // Start app

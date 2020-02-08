@@ -41,10 +41,10 @@
                   </div>
                   <form class="user" action="/login" method="post">
                     <div class="form-group">
-                      <input type="email" name="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" name="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+                      <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
@@ -56,7 +56,8 @@
                     <a class="small" href="/">Home</a>
                   </div>
                 </div>
-              </div>
+              <
+/div>
             </div>
           </div>
         </div>
