@@ -45,6 +45,7 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+/*
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
@@ -59,7 +60,24 @@ passport.use(new LocalStrategy({
       next(null, user);
   })
 }));
-
+*/
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+}, function(email, password, done) {
+    User.findOne({ email: email }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) { return done(null, false); }
+      if (!user || !bcrypt.compareSync(password, user.passwordHash)) { return done(null, false); }
+      return done(null, user);
+    });
+  }
+));
+app.post('/login',
+    passport.authenticate('local', { failureFlash: 'Invalid username or password.' }),
+    function(req, res) {
+        res.redirect('/books');
+    });
 
 // Serialize and Deserialize the json data
 passport.serializeUser(function(user, next) {
@@ -85,19 +103,13 @@ app.get('/books', function(req, res, next) {
 
 app.get('/main', function (req, res, next) {
   // res.render('main');
-  res.render('main');
+  res.render('books');
 });
 
 // LOGIN AND SIGNUP INFORMATION
-app.post('/login',
-    passport.authenticate('local', { failureRedirect: '/login-page' }),
-    function(req, res) {
-        res.redirect('/books');
-    });
-
 app.get('/login-page', function(req, res, next) {
     res.render('login-page')
-})
+});
 
 app.post('/signup', function(req, res, next) {
   User.findOne({
