@@ -85,7 +85,7 @@ app.get('/books', function(req, res, next) {
 
 app.get('/main', function (req, res, next) {
   // res.render('main');
-  res.render('books');
+  res.render('main');
 });
 
 // LOGIN AND SIGNUP INFORMATION
@@ -104,7 +104,7 @@ app.post('/signup', function(req, res, next) {
     email: req.body.email
   }, function(err, user){
       if (err) return next (err);
-      if (user) return next({message: "User already exists"});
+      if (user) return next(res.redirect('/login-page'));
       let newUser = new User({
         email: req.body.email,
         passwordHash: bcrypt.hashSync(req.body.password, 10)
